@@ -1,14 +1,17 @@
 import React from "react";
 
 import { QueryClient, QueryClientProvider } from "react-query";
-import Example from "./Example";
+import AddTaskForm from "./AddTaskForm";
+import TaskList from "./TaskList";
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Example />
+      <h1>TODO list</h1>
+      <AddTaskForm />
+      <TaskList />
     </QueryClientProvider>
   );
 }

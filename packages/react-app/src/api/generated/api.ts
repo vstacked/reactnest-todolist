@@ -279,11 +279,11 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerFindOne: async (id: string, options: any = {}): Promise<RequestArgs> => {
+        taskControllerFindOne: async (id: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling taskControllerFindOne.');
@@ -321,11 +321,11 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerRemove: async (id: string, options: any = {}): Promise<RequestArgs> => {
+        taskControllerRemove: async (id: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling taskControllerRemove.');
@@ -363,12 +363,12 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {UpdateTaskDto} updateTaskDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerUpdate: async (id: string, updateTaskDto: UpdateTaskDto, options: any = {}): Promise<RequestArgs> => {
+        taskControllerUpdate: async (id: number, updateTaskDto: UpdateTaskDto, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling taskControllerUpdate.');
@@ -386,7 +386,7 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -432,7 +432,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async taskControllerCreate(createTaskDto: CreateTaskDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async taskControllerCreate(createTaskDto: CreateTaskDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TaskDto>> {
             const localVarAxiosArgs = await TaskApiAxiosParamCreator(configuration).taskControllerCreate(createTaskDto, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -444,7 +444,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async taskControllerFindAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async taskControllerFindAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TaskDto>>> {
             const localVarAxiosArgs = await TaskApiAxiosParamCreator(configuration).taskControllerFindAll(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -453,11 +453,11 @@ export const TaskApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async taskControllerFindOne(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TaskDto>> {
+        async taskControllerFindOne(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TaskDto>> {
             const localVarAxiosArgs = await TaskApiAxiosParamCreator(configuration).taskControllerFindOne(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -466,11 +466,11 @@ export const TaskApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async taskControllerRemove(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async taskControllerRemove(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await TaskApiAxiosParamCreator(configuration).taskControllerRemove(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -479,12 +479,12 @@ export const TaskApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {UpdateTaskDto} updateTaskDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async taskControllerUpdate(id: string, updateTaskDto: UpdateTaskDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async taskControllerUpdate(id: number, updateTaskDto: UpdateTaskDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TaskDto>> {
             const localVarAxiosArgs = await TaskApiAxiosParamCreator(configuration).taskControllerUpdate(id, updateTaskDto, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -506,7 +506,7 @@ export const TaskApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerCreate(createTaskDto: CreateTaskDto, options?: any): AxiosPromise<void> {
+        taskControllerCreate(createTaskDto: CreateTaskDto, options?: any): AxiosPromise<TaskDto> {
             return TaskApiFp(configuration).taskControllerCreate(createTaskDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -514,35 +514,35 @@ export const TaskApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerFindAll(options?: any): AxiosPromise<void> {
+        taskControllerFindAll(options?: any): AxiosPromise<Array<TaskDto>> {
             return TaskApiFp(configuration).taskControllerFindAll(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerFindOne(id: string, options?: any): AxiosPromise<TaskDto> {
+        taskControllerFindOne(id: number, options?: any): AxiosPromise<TaskDto> {
             return TaskApiFp(configuration).taskControllerFindOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerRemove(id: string, options?: any): AxiosPromise<void> {
+        taskControllerRemove(id: number, options?: any): AxiosPromise<void> {
             return TaskApiFp(configuration).taskControllerRemove(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} id 
+         * @param {number} id 
          * @param {UpdateTaskDto} updateTaskDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        taskControllerUpdate(id: string, updateTaskDto: UpdateTaskDto, options?: any): AxiosPromise<void> {
+        taskControllerUpdate(id: number, updateTaskDto: UpdateTaskDto, options?: any): AxiosPromise<TaskDto> {
             return TaskApiFp(configuration).taskControllerUpdate(id, updateTaskDto, options).then((request) => request(axios, basePath));
         },
     };
@@ -570,10 +570,10 @@ export interface TaskApiTaskControllerCreateRequest {
 export interface TaskApiTaskControllerFindOneRequest {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof TaskApiTaskControllerFindOne
      */
-    readonly id: string
+    readonly id: number
 }
 
 /**
@@ -584,10 +584,10 @@ export interface TaskApiTaskControllerFindOneRequest {
 export interface TaskApiTaskControllerRemoveRequest {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof TaskApiTaskControllerRemove
      */
-    readonly id: string
+    readonly id: number
 }
 
 /**
@@ -598,10 +598,10 @@ export interface TaskApiTaskControllerRemoveRequest {
 export interface TaskApiTaskControllerUpdateRequest {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof TaskApiTaskControllerUpdate
      */
-    readonly id: string
+    readonly id: number
 
     /**
      * 
