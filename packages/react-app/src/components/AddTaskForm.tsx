@@ -1,15 +1,6 @@
-import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useCreateTask } from "../hooks/useTasks";
-
-function getErrorMessage(error: unknown): string[] {
-  if (axios.isAxiosError(error) && error.response) {
-    const { message } = error.response.data as { message?: string | string[] };
-    if (Array.isArray(message)) return message;
-    if (message) return [message];
-  }
-  return ["Something went wrong, please try again."];
-}
+import { getErrorMessage } from "../api/errors";
 
 export default function AddTaskForm() {
   const [title, setTitle] = useState("");

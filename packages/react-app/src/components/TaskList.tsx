@@ -1,8 +1,8 @@
-import { useDeleteTask, useTasks } from "../hooks/useTasks";
+import { useTasks } from "../hooks/useTasks";
+import TaskItem from "./TaskItem";
 
 export default function TaskList() {
   const { isLoading, isError, data: tasks } = useTasks();
-  const deleteTask = useDeleteTask();
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -13,16 +13,7 @@ export default function TaskList() {
   return (
     <ul>
       {tasks.map((task) => (
-        <li key={task.id}>
-          <strong>{task.title}</strong>
-          {task.description && ` - ${task.description}`}{" "}
-          <button
-            onClick={() => deleteTask.mutate(task.id)}
-            disabled={deleteTask.isLoading}
-          >
-            Remove
-          </button>
-        </li>
+        <TaskItem key={task.id} task={task} />
       ))}
     </ul>
   );

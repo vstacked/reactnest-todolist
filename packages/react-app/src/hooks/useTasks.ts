@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { CreateTaskDto, TaskDto } from "../api/generated";
+import { CreateTaskDto, TaskDto, UpdateTaskDto } from "../api/generated";
 import { tasksApi } from "../api/api";
 
 const TASK_QUERY_KEY = "task";
@@ -17,6 +17,18 @@ export function useCreateTask() {
   return useMutation(
     (createTaskDto: CreateTaskDto) =>
       tasksApi.taskControllerCreate({ createTaskDto }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(TASK_QUERY_KEY),
+    },
+  );
+}
+
+export function useUpdateTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    ({ id, updateTaskDto }: { id: number; updateTaskDto: UpdateTaskDto }) =>
+      tasksApi.taskControllerUpdate({ id, updateTaskDto }),
     {
       onSuccess: () => queryClient.invalidateQueries(TASK_QUERY_KEY),
     },
