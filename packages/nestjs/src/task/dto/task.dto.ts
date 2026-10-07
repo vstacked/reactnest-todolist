@@ -6,7 +6,7 @@ export class TaskDto {
   id: number;
 
   @ApiProperty({
-    description: 'The title of the task',
+    description: 'The title of the task (3 to 30 characters)',
     minLength: 3,
     maxLength: 30,
     example: 'Sample Task',
