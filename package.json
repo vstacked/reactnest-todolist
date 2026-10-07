@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-api-client": "docker compose up --build openapi_generator",
+    "generate-api-client": "docker compose run --rm --build openapi_generator",
     "update-api-client": "sh ./scripts/update-api.sh",
     "generate-and-update-api-client": "npm run generate-api-client && npm run update-api-client"
   },
