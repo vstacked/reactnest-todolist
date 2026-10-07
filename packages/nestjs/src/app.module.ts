@@ -6,6 +6,8 @@ import { TaskModule } from './task/task.module.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CacheModule } from '@nestjs/cache-manager';
 import { createKeyv } from '@keyv/redis';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { EnvirontmentVariables, validate } from './config/env.validation.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -18,27 +20,41 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     //   appSecret: 'YOUR_APP_SECRET',
     //   serviceId: 'nestjs',
     // }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.PGHOST ?? 'localhost',
-      port: Number(process.env.PGPORT ?? '5434'),
-      username: process.env.PGUSER ?? 'postgres',
-      password: process.env.PGPASSWORD ?? 'postgres',
-      database: process.env.PGDATABASE ?? 'postgres',
-      autoLoadEntities: true,
-      synchronize: true, //* Development only, set to false in production
+    ConfigModule.forRoot({
+      isGlobal: true,
+      ignoreEnvFile: true, //* docker-compose already injects .env.dev
+      validate,
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService<EnvirontmentVariables, true>) => ({
+        type: 'postgres',
+        host: config.get('PGHOST', { infer: true }),
+        port: config.get('PGPORT', { infer: true }),
+        username: config.get('PGUSER', { infer: true }),
+        password: config.get('PGPASSWORD', { infer: true }),
+        database: config.get('PGDATABASE', { infer: true }),
+        autoLoadEntities: true,
+        synchronize: false,
+        migrations: [import.meta.dirname + '/migrations/*{.js,.ts}'],
+        migrationsRun: true,
+      }),
     }),
     CacheModule.registerAsync({
       isGlobal: true,
-      useFactory: () => ({
-        //* REDIS_TTL is in seconds, cache-manager expects milliseconds
-        ttl: Number(process.env.REDIS_TTL) * 1000,
-        stores: [
-          createKeyv(
-            `redis://:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
-          ),
-        ],
-      }),
+      inject: [ConfigService],
+      useFactory: (config: ConfigService<EnvirontmentVariables, true>) => {
+        const host = config.get('REDIS_HOST', { infer: true });
+        const port = config.get('REDIS_PORT', { infer: true });
+        const password = encodeURIComponent(
+          config.get('REDIS_PASSWORD', { infer: true }),
+        );
+        return {
+          //* REDIS_TTL is in seconds, cache-manager expects milliseconds
+          ttl: config.get('REDIS_TTL', { infer: true }) * 1000,
+          stores: [createKeyv(`redis://:${password}@${host}:${port}`)],
+        };
+      },
     }),
     TaskModule,
   ],
