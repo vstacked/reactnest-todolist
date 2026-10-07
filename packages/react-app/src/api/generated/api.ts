@@ -26,7 +26,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  */
 export interface CreateTaskDto {
     /**
-     * The title of the task
+     * The title of the task (3 to 30 characters)
      * @type {string}
      * @memberof CreateTaskDto
      */
@@ -51,7 +51,7 @@ export interface TaskDto {
      */
     id: number;
     /**
-     * The title of the task
+     * The title of the task (3 to 30 characters)
      * @type {string}
      * @memberof TaskDto
      */
@@ -70,7 +70,7 @@ export interface TaskDto {
  */
 export interface UpdateTaskDto {
     /**
-     * The title of the task
+     * The title of the task (3 to 30 characters)
      * @type {string}
      * @memberof UpdateTaskDto
      */
